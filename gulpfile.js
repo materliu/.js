@@ -21,7 +21,8 @@ gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
-        .pipe($.size());
+        .pipe($.size())
+        .pipe(gulp.dest('.'));    // copy js file to / folder
 });
 
 gulp.task('html', ['styles', 'scripts'], function () {
@@ -67,7 +68,7 @@ gulp.task('extras', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+    return gulp.src(['.tmp', 'dist', '*.js', '!gulpfile.js'], { read: false }).pipe($.clean());
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'extras']);
